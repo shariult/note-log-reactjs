@@ -1,0 +1,11 @@
+// Imports //
+
+@use "../abstracts/" as *;
+
+// Codes //
+
+.container {
+  max-width: var(--grid-width);
+  margin-left: auto;
+  margin-right: auto;
+}

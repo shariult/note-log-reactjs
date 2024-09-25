@@ -1,0 +1,60 @@
+// Imports //
+
+@use "../abstracts/" as *;
+
+// Codes //
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--gray-50);
+  &__caption {
+    text-align: left;
+    padding: var(--space-16) 0;
+    font-size: var(--size-30);
+  }
+  &__row > * {
+    padding: var(--padding-sm);
+  }
+  &__row th {
+    text-align: left;
+  }
+  &__row:nth-of-type(odd) {
+    background-color: var(--gray-100);
+  }
+  &__row--top:nth-of-type(1) {
+    background-color: var(--gray-700);
+    color: var(--gray-50);
+    text-transform: uppercase;
+  }
+
+  &__img-box {
+    width: var(--size-52);
+    height: var(--size-52);
+    overflow: hidden;
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  @include responsive(1320) {
+    & th {
+      display: none;
+    }
+    & td {
+      display: block;
+    }
+    & td:first-child {
+      margin-top: var(--space-24);
+    }
+    & td:last-child {
+      margin-bottom: var(--space-24);
+    }
+    & td::before {
+      content: attr(data-cell);
+      font-weight: 700;
+    }
+  }
+}

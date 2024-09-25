@@ -1,0 +1,52 @@
+.auth {
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: minmax(70rem, 2fr) auto;
+  gap: var(--space-48);
+  & > * {
+    padding: var(--space-48) 0;
+  }
+  &__aside {
+    justify-self: center;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__subtitle {
+    margin-bottom: var(--space-32);
+    font-size: var(--size-18);
+    color: var(--gray-600);
+    text-align: center;
+  }
+  &__img-box {
+    max-width: 60rem;
+  }
+  &__img {
+    display: inline-block;
+    width: 100%;
+  }
+  &__main {
+  }
+  &__logo {
+    display: inline-block;
+    width: 9rem;
+    margin-bottom: var(--space-12);
+  }
+  &__form-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: var(--space-32);
+    background-color: var(--gray-100);
+    border-radius: var(--border-rad-l);
+    box-shadow: var(--shadow-s);
+  }
+  &__alt-msg {
+    margin: var(--space-16) 0;
+  }
+  &__link,
+  &__link:link,
+  &__link:visited {
+    text-decoration: underline;
+  }
+}

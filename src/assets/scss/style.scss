@@ -1,0 +1,21 @@
+/*
+Theme Name: Theme Starter Kit
+Theme URI: https://example.com
+Description: A description about the theme
+Author: Md. Shariul Islam
+Author URI: https://www.shariul.com
+Version: 1.0
+Tags: responsive, columns, custom menu, etc.
+*/
+
+// Base //
+
+@use "base/base";
+@use "base/animation";
+@use "base/typography";
+@use "base/utilities";
+
+@use "components/form";
+@use "components/table";
+
+@use "layout/grid";

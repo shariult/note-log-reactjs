@@ -1,10 +1,84 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { AuthProvider } from "./store/AuthContext";
+
+import RootLayout from "./pages/RootLayout";
+import NotebookLayout from "./pages/NotebookLayout";
+import ErrorPage from "./pages/ErrorPage";
+import Homepage from "./pages/Homepage";
+import SignUp from "./pages/SignUp";
+import NotebookHome from "./components/Notebook/NotebookHome";
+import NotebookNew from "./components/Notebook/NotebookNew";
+import NotebookShow from "./components/Notebook/NotebookShow";
+import NotebookEdit from "./components/Notebook/NotebookEdit";
+import NoteNew from "./components/Note/NoteNew";
+import NoteShow from "./components/Note/NoteShow";
+import NoteEdit from "./components/Note/NoteEdit";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Homepage />,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/notebook",
+    element: <NotebookLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <NotebookHome />,
+      },
+      {
+        path: "create",
+        element: <NotebookNew />,
+      },
+      {
+        path: ":nbId/edit",
+        element: <NotebookEdit />,
+      },
+      {
+        path: ":nbId/note",
+        children: [
+          {
+            index: true,
+            element: <NotebookShow />,
+          },
+          {
+            path: "create",
+            element: <NoteNew />,
+          },
+          {
+            path: ":nId",
+            element: <NoteShow />,
+          },
+          {
+            path: ":nId/edit",
+            element: <NoteEdit />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <div className="App">
-      <h2 className="heading-2">React.js Boilerplate</h2>
-    </div>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 
