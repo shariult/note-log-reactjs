@@ -1,10 +1,10 @@
 .auth {
   min-height: 80vh;
   display: grid;
-  grid-template-columns: minmax(70rem, 2fr) auto;
-  gap: var(--space-48);
+  grid-template-columns: 60% 1fr;
+  gap: var(--space-24);
   & > * {
-    padding: var(--space-48) 0;
+    padding: var(--space-24) 0;
   }
   &__aside {
     justify-self: center;
