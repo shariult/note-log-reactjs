@@ -1,13 +1,29 @@
+@use "../assets/scss/abstracts/" as *;
+
 .auth {
   min-height: 80vh;
   display: grid;
   grid-template-columns: 60% 1fr;
   gap: var(--space-24);
+
+  @include responsive(1200) {
+    grid-template-columns: 50% 1fr;
+  }
+  @include responsive(900) {
+    grid-template-columns: 1fr;
+  }
+
   & > * {
     padding: var(--space-24) 0;
   }
   &__aside {
     justify-self: center;
+    @include responsive(1200) {
+      padding-top: var(--space-48);
+    }
+    @include responsive(900) {
+      grid-row: 2;
+    }
   }
   &__title {
     text-align: center;
