@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isModalOpen: false,
+  isNotebookOpen: true,
 };
 
 const uiSlice = createSlice({
@@ -10,6 +11,9 @@ const uiSlice = createSlice({
   reducers: {
     toggleModalState: function (prevState, action) {
       prevState.isModalOpen = !prevState.isModalOpen;
+    },
+    toggleNotebookState: function (prevState, action) {
+      prevState.isNotebookOpen = !prevState.isNotebookOpen;
     },
   },
 });

@@ -26,6 +26,8 @@ function Button(props) {
     ? `${buttonClass} ${props.className}`
     : buttonClass;
 
+  console.log(allClasses);
+
   return (
     <button className={allClasses} onClick={props.onClick}>
       {props.children}

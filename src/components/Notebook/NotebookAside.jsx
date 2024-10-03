@@ -6,7 +6,7 @@ import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NotebookAside.module.scss";
 
-function NotebookAside() {
+function NotebookAside(props) {
   return (
     <aside className={styles["notebook"]}>
       <div className={styles["notebook__header"]}>
@@ -16,7 +16,10 @@ function NotebookAside() {
         </LinkAnchor>
       </div>
       <ul className={styles["notebook__list"]}>
-        <li className={styles["notebook__item"]}>
+        <li
+          className={styles["notebook__item"]}
+          onClick={props.onNotebookToggle}
+        >
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
@@ -38,7 +41,10 @@ function NotebookAside() {
             </Button>
           </div>
         </li>
-        <li className={styles["notebook__item"]}>
+        <li
+          className={styles["notebook__item"]}
+          onClick={props.onNotebookToggle}
+        >
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
@@ -60,7 +66,10 @@ function NotebookAside() {
             </Button>
           </div>
         </li>
-        <li className={styles["notebook__item"]}>
+        <li
+          className={styles["notebook__item"]}
+          onClick={props.onNotebookToggle}
+        >
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
