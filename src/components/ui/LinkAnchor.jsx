@@ -32,6 +32,7 @@ function LinkAnchor(props) {
       to={props.to}
       relative={props.relative || "path"}
       className={allClasses}
+      onClick={props.onClick}
     >
       {props.children}
     </Link>

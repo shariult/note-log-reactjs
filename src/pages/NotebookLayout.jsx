@@ -18,15 +18,13 @@ function NotebookLayout() {
     dispatch(uiActions.toggleNotebookState());
   }
 
-  console.log(uiState);
+  console.log(uiState.isNotebookOpen);
 
   return (
     <>
       <Navbar />
       <div className={`container ${styles["main"]}`}>
-        {uiState.isNotebookOpen && (
-          <NotebookAside onNotebookToggle={notebookToggleHandler} />
-        )}
+        {uiState.isNotebookOpen && <NotebookAside />}
         <Button
           className={styles["notebook-toggle"]}
           onClick={notebookToggleHandler}

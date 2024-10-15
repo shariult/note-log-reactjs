@@ -1,25 +1,34 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
+import { uiActions } from "../../store/uiSlice";
 import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NotebookAside.module.scss";
 
-function NotebookAside(props) {
+function NotebookAside() {
+  const dispatch = useDispatch();
+
+  function notebookToggleHandler() {
+    // dispatch(uiActions.toggleNotebookState());
+  }
+
   return (
     <aside className={styles["notebook"]}>
       <div className={styles["notebook__header"]}>
         <h2 className={`heading-2 ${styles["notebook__title"]}`}>Notebooks</h2>
-        <LinkAnchor to="/notebook/create" variant="primary">
+        <LinkAnchor
+          to="/notebook/create"
+          variant="primary"
+          onClick={notebookToggleHandler}
+        >
           Create Notebook
         </LinkAnchor>
       </div>
       <ul className={styles["notebook__list"]}>
-        <li
-          className={styles["notebook__item"]}
-          onClick={props.onNotebookToggle}
-        >
+        <li className={styles["notebook__item"]}>
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
@@ -41,10 +50,7 @@ function NotebookAside(props) {
             </Button>
           </div>
         </li>
-        <li
-          className={styles["notebook__item"]}
-          onClick={props.onNotebookToggle}
-        >
+        <li className={styles["notebook__item"]}>
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
@@ -66,10 +72,7 @@ function NotebookAside(props) {
             </Button>
           </div>
         </li>
-        <li
-          className={styles["notebook__item"]}
-          onClick={props.onNotebookToggle}
-        >
+        <li className={styles["notebook__item"]}>
           <LinkAnchor
             to="/notebook/someId/note"
             className={styles["notebook__link"]}
