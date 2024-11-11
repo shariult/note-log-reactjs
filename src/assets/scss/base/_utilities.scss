@@ -5,7 +5,7 @@
 
 // Codes //
 
-$spaceAmounts: (12, 24, 48, 64);
+$spaceAmounts: (12, 16, 24, 48, 64);
 @each $space in $spaceAmounts {
   // Margins
   .m-#{$space} {

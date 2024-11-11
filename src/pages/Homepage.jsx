@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 
+import AuthContext from "../store/AuthContext";
 import Button from "../components/ui/Button";
 import LinkAnchor from "../components/ui/LinkAnchor";
 
@@ -8,6 +9,30 @@ import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
 
 function Homepage() {
+  const { signInHandler } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function emailChangeHandler(e) {
+    setEmail(e.target.value);
+  }
+  function passwordChangeHandler(e) {
+    setPassword(e.target.value);
+  }
+
+  function onSignInSubmit(e) {
+    e.preventDefault();
+
+    const signInData = {
+      email,
+      password,
+    };
+    signInHandler(signInData);
+
+    setEmail("");
+    setPassword("");
+  }
+
   return (
     <main className={`container ${styles["auth"]}`}>
       <div className={styles["auth__aside"]}>
@@ -33,7 +58,7 @@ function Homepage() {
             className={styles["auth__logo"]}
           />
           <h2 className="heading-3 mb-24">Sign In</h2>
-          <form action="#" method="get" className="form">
+          <form method="get" className="form" onSubmit={onSignInSubmit}>
             <div className="form__group">
               <label htmlFor="email" className="form__label">
                 Email
@@ -41,10 +66,11 @@ function Homepage() {
               <input
                 type="email"
                 name="email"
-                value=""
+                value={email}
                 id="email"
                 className="form__input"
                 placeholder="Email"
+                onChange={emailChangeHandler}
                 required
               />
             </div>
@@ -55,10 +81,11 @@ function Homepage() {
               <input
                 type="password"
                 name="password"
-                value=""
+                value={password}
                 id="password"
                 className="form__input"
                 placeholder="Password "
+                onChange={passwordChangeHandler}
                 required
               />
             </div>

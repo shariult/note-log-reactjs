@@ -1,13 +1,56 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 
 import Button from "../components/ui/Button";
 import LinkAnchor from "../components/ui/LinkAnchor";
+import AuthContext from "../store/AuthContext";
 
 import styles from "./Homepage.module.scss";
 import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
 
 function SignUp() {
+  const { signUpHandler } = useContext(AuthContext);
+
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [about, setAbout] = useState("");
+
+  function fullNameChangeHandler(e) {
+    setFullName(e.target.value);
+  }
+  function usernameChangeHandler(e) {
+    setUsername(e.target.value);
+  }
+  function emailChangeHandler(e) {
+    setEmail(e.target.value);
+  }
+  function passwordChangeHandler(e) {
+    setPassword(e.target.value);
+  }
+  function aboutChangeHandler(e) {
+    setAbout(e.target.value);
+  }
+
+  function onSignUpSubmit(e) {
+    e.preventDefault();
+    const signUpData = {
+      fullName,
+      username,
+      email,
+      password,
+      about,
+    };
+    signUpHandler(signUpData);
+
+    setFullName("");
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setAbout("");
+  }
+
   return (
     <main className={`container ${styles["auth"]}`}>
       <div className={styles["auth__aside"]}>
@@ -33,7 +76,7 @@ function SignUp() {
             className={styles["auth__logo"]}
           />
           <h2 className="heading-3 mb-24">Sign Up</h2>
-          <form action="#" method="get" className="form">
+          <form method="get" className="form" onSubmit={onSignUpSubmit}>
             <div className="form__group form__group-1-2">
               <label htmlFor="fullName" className="form__label">
                 Full Name
@@ -41,10 +84,11 @@ function SignUp() {
               <input
                 type="text"
                 name="fullName"
-                value=""
+                value={fullName}
                 id="fullName"
                 className="form__input"
                 placeholder="Full Name"
+                onChange={fullNameChangeHandler}
                 required
               />
             </div>
@@ -55,10 +99,11 @@ function SignUp() {
               <input
                 type="text"
                 name="username"
-                value=""
+                value={username}
                 id="username"
                 className="form__input"
                 placeholder="Username"
+                onChange={usernameChangeHandler}
                 required
               />
             </div>
@@ -69,10 +114,11 @@ function SignUp() {
               <input
                 type="email"
                 name="email"
-                value=""
+                value={email}
                 id="email"
                 className="form__input"
                 placeholder="Email"
+                onChange={emailChangeHandler}
                 required
               />
             </div>
@@ -83,10 +129,11 @@ function SignUp() {
               <input
                 type="password"
                 name="password"
-                value=""
+                value={password}
                 id="password"
                 className="form__input"
                 placeholder="Password "
+                onChange={passwordChangeHandler}
                 required
               />
             </div>
@@ -96,10 +143,11 @@ function SignUp() {
               </label>
               <textarea
                 name="about"
-                value=""
+                value={about}
                 id="about"
                 className="form__textarea"
                 placeholder="About you"
+                onChange={aboutChangeHandler}
                 required
               ></textarea>
             </div>

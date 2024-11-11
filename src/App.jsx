@@ -16,6 +16,8 @@ import NoteNew from "./components/Note/NoteNew";
 import NoteShow from "./components/Note/NoteShow";
 import NoteEdit from "./components/Note/NoteEdit";
 
+import { isLoggedInLoader } from "./utils/auth";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
     path: "/notebook",
     element: <NotebookLayout />,
     errorElement: <ErrorPage />,
+    loader: isLoggedInLoader,
     children: [
       {
         index: true,

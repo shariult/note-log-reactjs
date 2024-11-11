@@ -6,9 +6,10 @@ import styles from "./Navbar.module.scss";
 
 import logo from "../../assets/img/logo.png";
 import userDefaultImg from "../../assets/img/users/user-1.jpg";
+import Button from "../ui/Button";
 
 function Navbar() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userData, signOutHandler } = useContext(AuthContext);
 
   return (
     <nav className={styles["navbar"]}>
@@ -71,30 +72,44 @@ function Navbar() {
             <ul
               className={`${styles["navbar__list"]} ${styles["navbar__list--sub"]}`}
             >
-              <li className={styles["navbar__item"]}>
-                <NavLink
-                  to="/signUp"
-                  className={({ isActive }) =>
-                    isActive
-                      ? `${styles["navbar__link"]} ${styles["navbar__link--active"]}`
-                      : styles["navbar__link"]
-                  }
+              {!isLoggedIn && (
+                <li className={styles["navbar__item"]}>
+                  <NavLink
+                    to="/signUp"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles["navbar__link"]} ${styles["navbar__link--active"]}`
+                        : styles["navbar__link"]
+                    }
+                  >
+                    SignUp
+                  </NavLink>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li className={styles["navbar__item"]}>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles["navbar__link"]} ${styles["navbar__link--active"]}`
+                        : styles["navbar__link"]
+                    }
+                  >
+                    SignIn
+                  </NavLink>
+                </li>
+              )}
+              {isLoggedIn && (
+                <li
+                  className={`${styles["navbar__item"]} ${styles["navbar__user"]}`}
                 >
-                  SignUp
-                </NavLink>
-              </li>
-              <li className={styles["navbar__item"]}>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive
-                      ? `${styles["navbar__link"]} ${styles["navbar__link--active"]}`
-                      : styles["navbar__link"]
-                  }
-                >
-                  SignIn
-                </NavLink>
-              </li>
+                  <p>{userData.fullName}</p>
+                  <Button variant="link" size="md" onClick={signOutHandler}>
+                    Sign Out
+                  </Button>
+                </li>
+              )}
             </ul>
           </li>
         </ul>

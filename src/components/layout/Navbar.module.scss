@@ -198,4 +198,13 @@
       display: block;
     }
   }
+  &__user {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    p {
+      font-size: $size-20;
+      padding: $space-16;
+    }
+  }
 }
