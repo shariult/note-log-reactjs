@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../store/AuthContext";
 import styles from "./Navbar.module.scss";
@@ -10,6 +10,12 @@ import Button from "../ui/Button";
 
 function Navbar() {
   const { isLoggedIn, userData, signOutHandler } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  function onSignOut() {
+    signOutHandler();
+    navigate("/");
+  }
 
   return (
     <nav className={styles["navbar"]}>
@@ -105,7 +111,7 @@ function Navbar() {
                   className={`${styles["navbar__item"]} ${styles["navbar__user"]}`}
                 >
                   <p>{userData.fullName}</p>
-                  <Button variant="link" size="md" onClick={signOutHandler}>
+                  <Button variant="link" size="md" onClick={onSignOut}>
                     Sign Out
                   </Button>
                 </li>

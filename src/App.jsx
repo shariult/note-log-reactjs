@@ -16,7 +16,7 @@ import NoteNew from "./components/Note/NoteNew";
 import NoteShow from "./components/Note/NoteShow";
 import NoteEdit from "./components/Note/NoteEdit";
 
-import { isLoggedInLoader } from "./utils/auth";
+import { isLoggedInLoader, isGuestLoader } from "./utils/auth";
 
 const router = createBrowserRouter([
   {
@@ -27,10 +27,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />,
+        loader: isGuestLoader,
       },
       {
         path: "/signUp",
         element: <SignUp />,
+        loader: isGuestLoader,
       },
     ],
   },

@@ -18,8 +18,6 @@ function NotebookLayout() {
     dispatch(uiActions.toggleNotebookState());
   }
 
-  console.log(uiState.isNotebookOpen);
-
   return (
     <>
       <Navbar />

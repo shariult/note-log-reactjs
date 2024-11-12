@@ -9,6 +9,12 @@ function AuthProvider(props) {
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  if (isLoggedIn === false && localStorage.getItem("token")) {
+    const userData = jwtDecode(localStorage.getItem("token"));
+    setUserData(userData);
+    setIsLoggedIn(true);
+  }
+
   // Handle SignUp
   function signUpResHandler(resData) {
     if (!error) {

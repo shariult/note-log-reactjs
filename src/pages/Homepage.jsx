@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../store/AuthContext";
 import Button from "../components/ui/Button";
@@ -9,7 +10,9 @@ import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
 
 function Homepage() {
-  const { signInHandler } = useContext(AuthContext);
+  const { signInHandler, isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,6 +35,12 @@ function Homepage() {
     setEmail("");
     setPassword("");
   }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/notebook");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <main className={`container ${styles["auth"]}`}>

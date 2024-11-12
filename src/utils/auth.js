@@ -16,4 +16,12 @@ function isLoggedInLoader() {
   return token;
 }
 
-export { getAuthTokenLoader, isLoggedInLoader };
+function isGuestLoader() {
+  const token = getAuthTokenLoader();
+  if (token) {
+    return redirect("/notebook");
+  }
+  return token;
+}
+
+export { getAuthTokenLoader, isLoggedInLoader, isGuestLoader };

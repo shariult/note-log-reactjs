@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import Button from "../components/ui/Button";
 import LinkAnchor from "../components/ui/LinkAnchor";
@@ -7,9 +7,11 @@ import AuthContext from "../store/AuthContext";
 import styles from "./Homepage.module.scss";
 import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const { signUpHandler } = useContext(AuthContext);
+  const { signUpHandler, isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -50,6 +52,12 @@ function SignUp() {
     setPassword("");
     setAbout("");
   }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/notebook");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <main className={`container ${styles["auth"]}`}>

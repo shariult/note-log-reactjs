@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Button from "../ui/Button";
 
 import styles from "./NotebookNew.module.scss";
+import { useDispatch } from "react-redux";
+import { createNotebookAction } from "../../store/notebookSlice";
 
 function NotebookNew() {
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState("");
+  const [notebookPrivacyLevel, setNotebookPrivacyLevel] = useState("");
+
+  function titleChangeHandler(e) {
+    setTitle(e.target.value);
+  }
+  function notebookPrivacyLevelChangeHandler(e) {
+    setNotebookPrivacyLevel(e.target.value);
+  }
+
+  function onNotebookSubmit(e) {
+    e.preventDefault();
+    const formData = {
+      title,
+      notebookPrivacyLevel,
+    };
+
+    setTitle("");
+    setNotebookPrivacyLevel("");
+
+    dispatch(createNotebookAction(formData));
+  }
+
   return (
     <div className={styles["notebook-create"]}>
       <h2 className="heading-2 mb-24">Create a Notebook</h2>
       <form
-        action="#"
         method="get"
         className={`form ${styles["notebook-create__form"]}`}
+        onSubmit={onNotebookSubmit}
       >
         <div className="form__group">
           <label htmlFor="title" className="form__label">
@@ -20,10 +47,11 @@ function NotebookNew() {
           <input
             type="text"
             name="title"
-            value=""
+            value={title}
             id="title"
             className="form__input"
             placeholder="Notebook Title"
+            onChange={titleChangeHandler}
             required
           />
         </div>
@@ -34,14 +62,11 @@ function NotebookNew() {
               name="notebookPrivacyLevel"
               id="notebookPrivacyLevel"
               className="form__select-menu"
+              onChange={notebookPrivacyLevelChangeHandler}
+              value={notebookPrivacyLevel}
               required
             >
-              <option
-                value=""
-                className="form__select-option"
-                disabled
-                selected
-              >
+              <option value="" className="form__select-option" disabled>
                 Access Level
               </option>
               <option value="0" className="form__select-option">
