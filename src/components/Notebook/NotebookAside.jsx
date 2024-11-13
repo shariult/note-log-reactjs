@@ -2,39 +2,29 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
-import { uiActions } from "../../store/uiSlice";
 import { listNotebookAction } from "../../store/notebookSlice";
 import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NotebookAside.module.scss";
 
-let isInitial = true;
-
 function NotebookAside() {
   const notebookArr = useSelector((state) => state.notebookState);
+  const uiState = useSelector((state) => state.uiState);
   const dispatch = useDispatch();
 
-  function notebookToggleHandler() {
-    // dispatch(uiActions.toggleNotebookState());
-  }
-
-  useEffect(function () {
-    if (isInitial) {
+  useEffect(
+    function () {
       dispatch(listNotebookAction());
-      isInitial = false;
-    }
-  });
+    },
+    [uiState.isNotebookOpen, dispatch]
+  );
 
   return (
     <aside className={styles["notebook"]}>
       <div className={styles["notebook__header"]}>
         <h2 className={`heading-2 ${styles["notebook__title"]}`}>Notebooks</h2>
-        <LinkAnchor
-          to="/notebook/create"
-          variant="primary"
-          onClick={notebookToggleHandler}
-        >
+        <LinkAnchor to="/notebook/create" variant="primary">
           Create Notebook
         </LinkAnchor>
       </div>

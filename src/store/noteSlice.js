@@ -3,8 +3,8 @@ import sendRequest from "../utils/sendRequest";
 
 const initialState = [];
 
-const notebookSlice = createSlice({
-  name: "notebookSlice",
+const noteSlice = createSlice({
+  name: "noteSlice",
   initialState,
   reducers: {
     list: function (prevState, action) {
@@ -16,31 +16,30 @@ const notebookSlice = createSlice({
   },
 });
 
-const notebookActions = notebookSlice.actions;
+const noteActions = noteSlice.actions;
 
-function createNotebookAction(formData) {
+function listNoteAction(notebookId) {
   return async function (dispatch) {
     const reqConfig = {
-      url: "/notebook",
+      url: `/notebook/${notebookId}/notes`,
+      method: "GET",
+    };
+    const data = await sendRequest(reqConfig);
+    dispatch(noteActions.list(data));
+  };
+}
+
+function createNoteAction(formData) {
+  return async function (dispatch) {
+    const reqConfig = {
+      url: `/notebook/${formData.notebookId}/notes`,
       method: "POST",
       body: formData,
     };
     const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.create(data));
+    dispatch(noteActions.create(data));
   };
 }
 
-function listNotebookAction() {
-  return async function (dispatch) {
-    const reqConfig = {
-      url: "/notebook",
-      method: "GET",
-    };
-
-    const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.list(data));
-  };
-}
-
-export { notebookActions, createNotebookAction, listNotebookAction };
-export default notebookSlice;
+export { noteActions, createNoteAction, listNoteAction };
+export default noteSlice;
