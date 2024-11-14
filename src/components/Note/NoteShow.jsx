@@ -5,23 +5,14 @@ import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NoteShow.module.scss";
-import useHTTP from "../../hooks/useHTTP";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NoteShow() {
   const { nbId, nId } = useParams();
-  const { sendRequest, isLoading, error } = useHTTP();
-  const [noteData, setNoteData] = useState({ noteTags: [] });
+  const noteArr = useSelector((state) => state.noteState);
 
-  function resHandler(data) {
-    setNoteData(data);
-  }
-  const reqConfig = {
-    url: `/notebook/${nbId}/notes/${nId}`,
-  };
-  useEffect(function () {
-    sendRequest(reqConfig, resHandler);
-  }, []);
+  const noteData = noteArr.filter((noteItem) => noteItem._id === nId)[0];
 
   return (
     <div className={styles["note"]}>
@@ -35,8 +26,10 @@ function NoteShow() {
         created by <em>Author</em> on <em>{noteData.createdAt}</em>
       </p>
       <div className={styles["note__tags"]}>
-        {noteData.noteTags.map((noteTag) => (
-          <span className={styles["note__tag"]}>{noteTag}</span>
+        {noteData.noteTags.map((noteTag, idx) => (
+          <span className={styles["note__tag"]} key={idx}>
+            {noteTag}
+          </span>
         ))}
       </div>
       <div className={styles["note__dates"]}>

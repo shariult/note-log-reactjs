@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
-import { listNotebookAction } from "../../store/notebookSlice";
+import {
+  notebookDeleteAction,
+  notebookListAction,
+} from "../../store/notebookSlice";
 import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
@@ -15,10 +18,14 @@ function NotebookAside() {
 
   useEffect(
     function () {
-      dispatch(listNotebookAction());
+      dispatch(notebookListAction());
     },
     [uiState.isNotebookOpen, dispatch]
   );
+
+  function notebookDeleteHandler(nbId) {
+    dispatch(notebookDeleteAction({ _id: nbId }));
+  }
 
   return (
     <aside className={styles["notebook"]}>
@@ -48,6 +55,7 @@ function NotebookAside() {
                 </LinkAnchor>
                 <Button
                   className={`${styles["notebook__action"]} ${styles["notebook__action--danger"]}`}
+                  onClick={notebookDeleteHandler.bind(this, notebookItem._id)}
                 >
                   <FaRegTrashAlt />
                 </Button>

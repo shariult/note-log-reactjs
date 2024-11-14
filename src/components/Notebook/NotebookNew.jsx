@@ -4,7 +4,7 @@ import Button from "../ui/Button";
 
 import styles from "./NotebookNew.module.scss";
 import { useDispatch } from "react-redux";
-import { createNotebookAction } from "../../store/notebookSlice";
+import { notebookCreateAction } from "../../store/notebookSlice";
 
 function NotebookNew() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function NotebookNew() {
     setTitle("");
     setNotebookPrivacyLevel("");
 
-    dispatch(createNotebookAction(formData));
+    dispatch(notebookCreateAction(formData));
   }
 
   return (
