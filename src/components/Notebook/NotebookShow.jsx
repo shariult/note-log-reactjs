@@ -12,10 +12,6 @@ function NotebookShow() {
   const dispatch = useDispatch();
   const { nbId } = useParams();
 
-  function notebookToggleHandler() {
-    // dispatch(uiActions.toggleNotebookState());
-  }
-
   useEffect(
     function () {
       dispatch(noteListAction(nbId));
@@ -27,21 +23,13 @@ function NotebookShow() {
     <div className={styles["note"]}>
       <div className={styles["note__header"]}>
         <h3 className={`heading-3 ${styles["note__title"]}`}>Notes</h3>
-        <LinkAnchor
-          to={`/notebook/${nbId}/note/create`}
-          variant="primary"
-          onClick={notebookToggleHandler}
-        >
+        <LinkAnchor to={`/notebook/${nbId}/note/create`} variant="primary">
           Create Note
         </LinkAnchor>
       </div>
       <ul className={styles["note__list"]}>
         {noteArr.map((noteItem) => (
-          <li
-            className={styles["note__item"]}
-            onClick={notebookToggleHandler}
-            key={noteItem._id}
-          >
+          <li className={styles["note__item"]} key={noteItem._id}>
             <LinkAnchor
               to={`/notebook/${nbId}/note/${noteItem._id}`}
               className={styles["note__link"]}

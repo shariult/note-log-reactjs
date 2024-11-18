@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
 import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
+import { noteDeleteAction } from "../../store/noteSlice";
+import { dateFormatter } from "../../utils/utilFunctions";
 
 import styles from "./NoteShow.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { dateFormatter } from "../../utils/utilFunctions";
-import { useDispatch } from "react-redux";
-import { noteDeleteAction } from "../../store/noteSlice";
 
 function NoteShow() {
   const { nbId, nId } = useParams();

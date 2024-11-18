@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../ui/Button";
 
 import styles from "./NotebookNew.module.scss";
-import { useDispatch } from "react-redux";
 import { notebookCreateAction } from "../../store/notebookSlice";
 
 function NotebookNew() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [notebookPrivacyLevel, setNotebookPrivacyLevel] = useState("");
@@ -30,6 +32,8 @@ function NotebookNew() {
     setNotebookPrivacyLevel("");
 
     dispatch(notebookCreateAction(formData));
+
+    navigate(`/notebook`);
   }
 
   return (

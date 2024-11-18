@@ -13,7 +13,13 @@ const uiSlice = createSlice({
       prevState.isModalOpen = !prevState.isModalOpen;
     },
     toggleNotebookState: function (prevState, action) {
-      prevState.isNotebookOpen = !prevState.isNotebookOpen;
+      if (action.payload === "open") {
+        prevState.isNotebookOpen = true;
+      } else if (action.payload === "close") {
+        prevState.isNotebookOpen = false;
+      } else {
+        prevState.isNotebookOpen = !prevState.isNotebookOpen;
+      }
     },
   },
 });
