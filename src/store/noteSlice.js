@@ -13,12 +13,27 @@ const noteSlice = createSlice({
     create: function (prevState, action) {
       prevState.push(action.payload);
     },
+    update: function (prevState, action) {
+      const itemIdx = prevState.findIndex(
+        (item) => item._id === action.payload._id
+      );
+
+      prevState[itemIdx].noteTitle = action.payload.noteTitle;
+      prevState[itemIdx].noteContent = action.payload.noteContent;
+      prevState[itemIdx].noteTags = action.payload.noteTags;
+      prevState[itemIdx].noteStartDate = action.payload.noteStartDate;
+      prevState[itemIdx].noteEndDate = action.payload.noteEndDate;
+      prevState[itemIdx].notePrivacyLevel = action.payload.notePrivacyLevel;
+    },
+    delete: function (prevState, action) {
+      return action.payload;
+    },
   },
 });
 
 const noteActions = noteSlice.actions;
 
-function listNoteAction(notebookId) {
+function noteListAction(notebookId) {
   return async function (dispatch) {
     const reqConfig = {
       url: `/notebook/${notebookId}/notes`,
@@ -29,7 +44,7 @@ function listNoteAction(notebookId) {
   };
 }
 
-function createNoteAction(formData) {
+function noteCreateAction(formData) {
   return async function (dispatch) {
     const reqConfig = {
       url: `/notebook/${formData.notebookId}/notes`,
@@ -41,5 +56,34 @@ function createNoteAction(formData) {
   };
 }
 
-export { noteActions, createNoteAction, listNoteAction };
+function noteUpdateAction(formData) {
+  return async function (dispatch) {
+    const reqConfig = {
+      url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
+      method: "PUT",
+      body: formData,
+    };
+    const data = await sendRequest(reqConfig);
+    dispatch(noteActions.update(data));
+  };
+}
+
+function noteDeleteAction(formData) {
+  return async function (dispatch) {
+    const reqConfig = {
+      url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
+      method: "DELETE",
+    };
+    const data = await sendRequest(reqConfig);
+    dispatch(noteActions.delete(data));
+  };
+}
+
+export {
+  noteActions,
+  noteCreateAction,
+  noteListAction,
+  noteUpdateAction,
+  noteDeleteAction,
+};
 export default noteSlice;

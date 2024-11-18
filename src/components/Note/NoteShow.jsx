@@ -5,14 +5,28 @@ import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NoteShow.module.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { dateFormatter } from "../../utils/utilFunctions";
+import { useDispatch } from "react-redux";
+import { noteDeleteAction } from "../../store/noteSlice";
 
 function NoteShow() {
   const { nbId, nId } = useParams();
   const noteArr = useSelector((state) => state.noteState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const noteData = noteArr.filter((noteItem) => noteItem._id === nId)[0];
+
+  function noteDeleteHandler() {
+    const formData = {
+      nbId,
+      nId,
+    };
+    dispatch(noteDeleteAction(formData));
+    navigate(`/notebook/${nbId}/note`);
+  }
 
   return (
     <div className={styles["note"]}>
@@ -23,7 +37,8 @@ function NoteShow() {
         </span>
       </h2>
       <p className={styles["note__author"]}>
-        created by <em>Author</em> on <em>{noteData.createdAt}</em>
+        created by <em>Author</em> on{" "}
+        <em>{dateFormatter(noteData.createdAt)}</em>
       </p>
       <div className={styles["note__tags"]}>
         {noteData.noteTags.map((noteTag, idx) => (
@@ -34,10 +49,14 @@ function NoteShow() {
       </div>
       <div className={styles["note__dates"]}>
         <p className={styles["note__date"]}>
-          Started At: <em>{noteData.noteStartDate}</em>
+          Started At:{" "}
+          <em>
+            {noteData.noteStartDate && dateFormatter(noteData.noteStartDate)}
+          </em>
         </p>
         <p className={styles["note__date"]}>
-          Completed At: <em>{noteData.noteEndDate}</em>
+          Completed At:{" "}
+          <em>{noteData.noteEndDate && dateFormatter(noteData.noteEndDate)}</em>
         </p>
       </div>
       <p className={styles["note__content"]}>{noteData.noteContent}</p>
@@ -48,7 +67,7 @@ function NoteShow() {
         >
           <FaRegEdit />
         </LinkAnchor>
-        <Button variant="danger">
+        <Button variant="danger" onClick={noteDeleteHandler}>
           <FaRegTrashAlt />
         </Button>
       </div>

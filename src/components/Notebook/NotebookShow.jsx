@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { noteListAction } from "../../store/noteSlice";
 
-import { uiActions } from "../../store/uiSlice";
-
-import Button from "../ui/Button";
 import LinkAnchor from "../ui/LinkAnchor";
 
 import styles from "./NotebookShow.module.scss";
-import { listNoteAction } from "../../store/noteSlice";
-import { useSelector } from "react-redux";
 
 function NotebookShow() {
   const noteArr = useSelector((states) => states.noteState);
@@ -23,7 +18,7 @@ function NotebookShow() {
 
   useEffect(
     function () {
-      dispatch(listNoteAction(nbId));
+      dispatch(noteListAction(nbId));
     },
     [dispatch, nbId]
   );
@@ -53,20 +48,6 @@ function NotebookShow() {
             >
               {noteItem.noteTitle}
             </LinkAnchor>
-            <div className={styles["note__action-group"]}>
-              <LinkAnchor
-                to={`/notebook/${nbId}/note/${noteItem._id}/edit`}
-                variant="primary"
-                className={styles["note__action"]}
-              >
-                <FaRegEdit />
-              </LinkAnchor>
-              <Button
-                className={`${styles["note__action"]} ${styles["note__action--danger"]}`}
-              >
-                <FaRegTrashAlt />
-              </Button>
-            </div>
           </li>
         ))}
         {noteArr.length === 0 && <p className="text--center">No Note Found!</p>}

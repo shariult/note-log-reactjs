@@ -3,9 +3,9 @@ import React, { useReducer } from "react";
 import Button from "../ui/Button";
 
 import styles from "./NoteNew.module.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createNoteAction } from "../../store/noteSlice";
+import { noteCreateAction } from "../../store/noteSlice";
 
 const noteFormInitialState = {
   noteTitle: "",
@@ -24,6 +24,9 @@ function noteFormReducer(prevState, action) {
         [action.payload.target.name]: action.payload.target.value,
       };
     }
+    case "SET_INITIAL": {
+      return { ...action.payload };
+    }
     case "RESET": {
       return noteFormInitialState;
     }
@@ -36,6 +39,7 @@ function noteFormReducer(prevState, action) {
 function NoteNew() {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [noteFormState, noteDispatchFn] = useReducer(
     noteFormReducer,
     noteFormInitialState
@@ -50,8 +54,9 @@ function NoteNew() {
       ...noteFormState,
       notebookId: params.nbId,
     };
-    dispatch(createNoteAction(noteData));
+    dispatch(noteCreateAction(noteData));
     noteDispatchFn({ type: "RESET" });
+    navigate(`/notebook/${params.nbId}/note`);
   }
 
   return (
