@@ -1,0 +1,23 @@
+@use "../../assets/scss/abstracts/" as *;
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(#000000, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 95;
+}
+
+.modal {
+  padding: var(--space-32);
+  background-color: var(--gray-50);
+  border-radius: var(--size-16);
+  box-shadow: var(--shadow-m);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 96;
+  transform: translate(-50%, -50%);
+}

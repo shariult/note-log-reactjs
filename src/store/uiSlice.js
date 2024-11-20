@@ -9,7 +9,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    toggleModalState: function (prevState, action) {
+    modalToggleFn: function (prevState, action) {
       prevState.isModalOpen = !prevState.isModalOpen;
     },
     toggleNotebookState: function (prevState, action) {

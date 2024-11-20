@@ -4,7 +4,7 @@ import Button from "../ui/Button";
 
 import styles from "./NotebookEdit.module.scss";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { notebookUpdateAction } from "../../store/notebookSlice";
 
@@ -36,26 +36,28 @@ function notebookFormReducer(prevState, action) {
 function NotebookEdit() {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const notebookArr = useSelector((state) => state.notebookState);
   const [notebookFormState, notebookDispatchFn] = useReducer(
     notebookFormReducer,
     notebookFormInitialState
   );
 
-  const notebookData = notebookArr.filter(
+  const notebookItem = notebookArr.filter(
     (notebookItem) => notebookItem._id === params.nbId
   )[0];
 
   useEffect(
     function () {
-      notebookDispatchFn({ type: "SET_INITIAL", payload: notebookData });
+      notebookDispatchFn({ type: "SET_INITIAL", payload: notebookItem });
     },
-    [notebookData._id]
+    [notebookItem._id]
   );
 
   function onNotebookUpdate(e) {
     e.preventDefault();
     dispatch(notebookUpdateAction(notebookFormState));
+    navigate(`/notebook/${notebookItem._id}/note`);
   }
 
   return (

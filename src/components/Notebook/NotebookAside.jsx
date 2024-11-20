@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
-import {
-  notebookDeleteAction,
-  notebookListAction,
-} from "../../store/notebookSlice";
-import Button from "../ui/Button";
+import { notebookListAction } from "../../store/notebookSlice";
 import LinkAnchor from "../ui/LinkAnchor";
+import NotebookItem from "./NotebookItem";
 
-import styles from "./NotebookAside.module.scss";
+import styles from "./Notebook.module.scss";
 
 function NotebookAside() {
   const notebookArr = useSelector((state) => state.notebookState);
@@ -23,48 +19,29 @@ function NotebookAside() {
     [uiState.isNotebookOpen, dispatch]
   );
 
-  function notebookDeleteHandler(nbId) {
-    dispatch(notebookDeleteAction({ _id: nbId }));
-  }
-
   return (
-    <aside className={styles["notebook"]}>
-      <div className={styles["notebook__header"]}>
-        <h2 className={`heading-2 ${styles["notebook__title"]}`}>Notebooks</h2>
-        <LinkAnchor to="/notebook/create" variant="primary">
-          Create Notebook
-        </LinkAnchor>
-      </div>
-      <ul className={styles["notebook__list"]}>
-        {notebookArr.map(function (notebookItem) {
-          return (
-            <li className={styles["notebook__item"]} key={notebookItem._id}>
-              <LinkAnchor
-                to={`/notebook/${notebookItem._id}/note`}
-                className={styles["notebook__link"]}
-              >
-                {notebookItem.title}
-              </LinkAnchor>
-              <div className={styles["notebook__action-group"]}>
-                <LinkAnchor
-                  to={`/notebook/${notebookItem._id}/edit`}
-                  variant="primary"
-                  className={styles["notebook__action"]}
-                >
-                  <FaRegEdit />
-                </LinkAnchor>
-                <Button
-                  className={`${styles["notebook__action"]} ${styles["notebook__action--danger"]}`}
-                  onClick={notebookDeleteHandler.bind(this, notebookItem._id)}
-                >
-                  <FaRegTrashAlt />
-                </Button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </aside>
+    <>
+      <aside className={styles["notebook"]}>
+        <div className={styles["notebook__header"]}>
+          <h2 className={`heading-2 ${styles["notebook__title"]}`}>
+            Notebooks
+          </h2>
+          <LinkAnchor to="/notebook/create" variant="primary">
+            Create Notebook
+          </LinkAnchor>
+        </div>
+        <ul className={styles["notebook__list"]}>
+          {notebookArr.map(function (notebookItem) {
+            return (
+              <NotebookItem
+                key={notebookItem._id}
+                notebookItem={notebookItem}
+              />
+            );
+          })}
+        </ul>
+      </aside>
+    </>
   );
 }
 

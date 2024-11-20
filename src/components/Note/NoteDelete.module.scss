@@ -1,0 +1,14 @@
+@use "../../assets/scss/abstracts/" as *;
+
+.note-delete {
+  &__title {
+    padding: var(--space-16) 0;
+    margin-bottom: var(--space-24);
+    border-bottom: 1px solid var(--gray-300);
+  }
+  &__btn-box {
+    display: flex;
+    justify-content: end;
+    gap: var(--space-16);
+  }
+}
