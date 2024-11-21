@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isModalOpen: false,
   isNotebookOpen: true,
+  showLoader: false,
 };
 
 const uiSlice = createSlice({
@@ -20,6 +21,9 @@ const uiSlice = createSlice({
       } else {
         prevState.isNotebookOpen = !prevState.isNotebookOpen;
       }
+    },
+    loaderToggleFn: function (prevState, action) {
+      prevState.showLoader = action.payload;
     },
   },
 });

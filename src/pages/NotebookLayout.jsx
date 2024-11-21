@@ -9,6 +9,8 @@ import NotebookAside from "../components/Notebook/NotebookAside";
 
 import { PiNotebook } from "react-icons/pi";
 import styles from "./NotebookLayout.module.scss";
+import Loader from "../components/ui/Loader";
+import Modal from "../components/ui/Modal";
 
 function NotebookLayout() {
   const uiState = useSelector((state) => state.uiState);
@@ -43,6 +45,11 @@ function NotebookLayout() {
 
   return (
     <>
+      {uiState.showLoader && (
+        <Modal>
+          <Loader />
+        </Modal>
+      )}
       <Navbar />
       <div className={`container ${styles["main"]}`}>
         {uiState.isNotebookOpen && <NotebookAside />}

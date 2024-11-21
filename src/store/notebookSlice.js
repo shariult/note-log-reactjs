@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendRequest from "../utils/sendRequest";
+import { uiActions } from "./uiSlice";
 
 const initialState = [];
 
@@ -32,50 +33,82 @@ const notebookActions = notebookSlice.actions;
 
 function notebookListAction() {
   return async function (dispatch) {
-    const reqConfig = {
-      url: "/notebook",
-      method: "GET",
-    };
+    dispatch(uiActions.loaderToggleFn(true));
 
-    const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.list(data));
+    try {
+      const reqConfig = {
+        url: "/notebook",
+        method: "GET",
+      };
+
+      const data = await sendRequest(reqConfig);
+      dispatch(notebookActions.list(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function notebookCreateAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: "/notebook",
-      method: "POST",
-      body: formData,
-    };
-    const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.create(data));
+    dispatch(uiActions.loaderToggleFn(true));
+
+    try {
+      const reqConfig = {
+        url: "/notebook",
+        method: "POST",
+        body: formData,
+      };
+      const data = await sendRequest(reqConfig);
+      dispatch(notebookActions.create(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function notebookUpdateAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${formData._id}`,
-      method: "PUT",
-      body: formData,
-    };
+    dispatch(uiActions.loaderToggleFn(true));
 
-    const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.update(data));
+    try {
+      const reqConfig = {
+        url: `/notebook/${formData._id}`,
+        method: "PUT",
+        body: formData,
+      };
+
+      const data = await sendRequest(reqConfig);
+      dispatch(notebookActions.update(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function notebookDeleteAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${formData._id}`,
-      method: "DELETE",
-    };
+    dispatch(uiActions.loaderToggleFn(true));
 
-    const data = await sendRequest(reqConfig);
-    dispatch(notebookActions.delete(data));
+    try {
+      const reqConfig = {
+        url: `/notebook/${formData._id}`,
+        method: "DELETE",
+      };
+
+      const data = await sendRequest(reqConfig);
+      dispatch(notebookActions.delete(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 

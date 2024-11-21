@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendRequest from "../utils/sendRequest";
+import { uiActions } from "./uiSlice";
 
 const initialState = [];
 
@@ -35,47 +36,79 @@ const noteActions = noteSlice.actions;
 
 function noteListAction(notebookId) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${notebookId}/notes`,
-      method: "GET",
-    };
-    const data = await sendRequest(reqConfig);
-    dispatch(noteActions.list(data));
+    dispatch(uiActions.loaderToggleFn(true));
+
+    try {
+      const reqConfig = {
+        url: `/notebook/${notebookId}/notes`,
+        method: "GET",
+      };
+      const data = await sendRequest(reqConfig);
+      dispatch(noteActions.list(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function noteCreateAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${formData.notebookId}/notes`,
-      method: "POST",
-      body: formData,
-    };
-    const data = await sendRequest(reqConfig);
-    dispatch(noteActions.create(data));
+    dispatch(uiActions.loaderToggleFn(true));
+
+    try {
+      const reqConfig = {
+        url: `/notebook/${formData.notebookId}/notes`,
+        method: "POST",
+        body: formData,
+      };
+      const data = await sendRequest(reqConfig);
+      dispatch(noteActions.create(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function noteUpdateAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
-      method: "PUT",
-      body: formData,
-    };
-    const data = await sendRequest(reqConfig);
-    dispatch(noteActions.update(data));
+    dispatch(uiActions.loaderToggleFn(true));
+
+    try {
+      const reqConfig = {
+        url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
+        method: "PUT",
+        body: formData,
+      };
+      const data = await sendRequest(reqConfig);
+      dispatch(noteActions.update(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 
 function noteDeleteAction(formData) {
   return async function (dispatch) {
-    const reqConfig = {
-      url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
-      method: "DELETE",
-    };
-    const data = await sendRequest(reqConfig);
-    dispatch(noteActions.delete(data));
+    dispatch(uiActions.loaderToggleFn(true));
+
+    try {
+      const reqConfig = {
+        url: `/notebook/${formData.nbId}/notes/${formData.nId}`,
+        method: "DELETE",
+      };
+      const data = await sendRequest(reqConfig);
+      dispatch(noteActions.delete(data));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(uiActions.loaderToggleFn(false));
+    }
   };
 }
 

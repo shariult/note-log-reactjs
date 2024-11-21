@@ -82,3 +82,16 @@
     transform: translateY(-100%);
   }
 }
+
+@keyframes rotateLoader {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-loader {
+  animation: rotateLoader 1s linear infinite;
+}

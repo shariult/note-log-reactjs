@@ -11,8 +11,8 @@ async function sendRequest(reqConfig) {
   });
 
   if (!res.ok) {
-    console.log("Something went wrong!");
-    return;
+    const errorData = await res.json();
+    throw new Error(errorData.message || "Something went wrong!");
   }
 
   return res.json();
