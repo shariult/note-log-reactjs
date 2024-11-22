@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../store/AuthContext";
@@ -11,10 +11,15 @@ import Button from "../ui/Button";
 function Navbar() {
   const { isLoggedIn, userData, signOutHandler } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showNavbar, setShowNavbar] = useState(false);
 
   function onSignOut() {
     signOutHandler();
     navigate("/");
+  }
+
+  function navbarToggleHandler() {
+    setShowNavbar((prevState) => !prevState);
   }
 
   return (
@@ -29,7 +34,11 @@ function Navbar() {
             />
           </NavLink>
         </div>
-        <ul className={styles["navbar__list"]}>
+        <ul
+          className={`${styles["navbar__list"]} ${
+            showNavbar && styles["navbar__toggle--open"]
+          }`}
+        >
           <li className={styles["navbar__item"]}>
             <NavLink
               to="/"
@@ -121,7 +130,12 @@ function Navbar() {
         </ul>
 
         <div className={styles["navbar__toggle"]}>
-          <span className={styles["navbar__toggle-icon"]}>&nbsp;</span>
+          <span
+            className={styles["navbar__toggle-icon"]}
+            onClick={navbarToggleHandler}
+          >
+            &nbsp;
+          </span>
         </div>
       </div>
     </nav>

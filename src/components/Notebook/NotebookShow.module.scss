@@ -8,11 +8,12 @@
   box-shadow: var(--shadow-s);
   position: absolute;
   left: 37rem;
-  z-index: 1;
+  z-index: 3;
   @include responsive(1360) {
     left: 39rem;
   }
   @include responsive(800) {
+    left: 2rem;
     width: 92%;
   }
   &__header {
