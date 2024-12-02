@@ -1,0 +1,23 @@
+// Imports //
+
+@use "../abstracts/" as *;
+
+// Codes //
+.footer {
+  background-color: var(--gray-50);
+  &__copyright {
+    padding: var(--space-16);
+  }
+  &__link,
+  &__link:link,
+  &__link:visited {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-pr);
+    transition: var(--transition-s);
+  }
+  &__link:hover {
+    color: var(--color-pd);
+    text-decoration: underline;
+  }
+}
