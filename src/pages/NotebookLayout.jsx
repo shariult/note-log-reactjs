@@ -12,6 +12,7 @@ import styles from "./NotebookLayout.module.scss";
 import Loader from "../components/ui/Loader";
 import Modal from "../components/ui/Modal";
 import Footer from "../components/layout/Footer";
+import { Toaster } from "react-hot-toast";
 
 function NotebookLayout() {
   const uiState = useSelector((state) => state.uiState);
@@ -41,7 +42,7 @@ function NotebookLayout() {
         dispatch(uiActions.toggleNotebookState("open"));
       }
     },
-    [dispatch, location.pathname]
+    [dispatch, location.pathname],
   );
 
   return (
@@ -51,6 +52,7 @@ function NotebookLayout() {
           <Loader />
         </Modal>
       )}
+      <Toaster />
       <Navbar />
       <div className={`container ${styles["main"]}`}>
         {uiState.isNotebookOpen && <NotebookAside />}

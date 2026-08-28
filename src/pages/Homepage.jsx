@@ -8,9 +8,10 @@ import LinkAnchor from "../components/ui/LinkAnchor";
 import styles from "./Homepage.module.scss";
 import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
+import toast from "react-hot-toast";
 
 function Homepage() {
-  const { signInHandler, isLoggedIn } = useContext(AuthContext);
+  const { signInHandler, isLoggedIn, error } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -40,7 +41,11 @@ function Homepage() {
     if (isLoggedIn) {
       navigate("/notebook");
     }
-  }, [isLoggedIn, navigate]);
+
+    if (error) {
+      toast.error("Wrong Credentials!");
+    }
+  }, [isLoggedIn, navigate, error]);
 
   return (
     <main className={`container ${styles["auth"]}`}>

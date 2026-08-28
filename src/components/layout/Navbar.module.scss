@@ -14,6 +14,9 @@
     @include responsive(1440) {
       padding: 0 var(--space-24);
     }
+    @include responsive(800) {
+      justify-content: flex-end;
+    }
   }
   &__logo {
     max-height: var(--size-30);
@@ -21,6 +24,9 @@
     &-img {
       display: inline-block;
       height: 100%;
+    }
+    @include responsive(800) {
+      margin-right: auto;
     }
   }
   &__list {
@@ -167,6 +173,16 @@
     transform: rotate(-90deg);
   }
 
+  &__user {
+    display: flex;
+    list-style: none;
+    list-style-position: inside;
+    .navbar__item,
+    .navbar__link {
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+    }
+  }
   &__list--sub {
     height: 0;
     min-width: 20rem;

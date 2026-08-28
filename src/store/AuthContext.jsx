@@ -75,6 +75,7 @@ function AuthProvider(props) {
         signUpHandler,
         signInHandler,
         signOutHandler,
+        error,
       }}
     >
       {props.children}

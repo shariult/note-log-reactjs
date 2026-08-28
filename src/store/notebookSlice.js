@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendRequest from "../utils/sendRequest";
 import { uiActions } from "./uiSlice";
+import toast from "react-hot-toast";
 
 const initialState = [];
 
@@ -16,7 +17,7 @@ const notebookSlice = createSlice({
     },
     update: function (prevState, action) {
       const itemIdx = prevState.findIndex(
-        (item) => item._id === action.payload._id
+        (item) => item._id === action.payload._id,
       );
 
       prevState[itemIdx].title = action.payload.title;
@@ -44,6 +45,7 @@ function notebookListAction() {
       const data = await sendRequest(reqConfig);
       dispatch(notebookActions.list(data));
     } catch (err) {
+      toast.error("Something went wrong!");
       console.log(err);
     } finally {
       dispatch(uiActions.loaderToggleFn(false));
@@ -62,8 +64,10 @@ function notebookCreateAction(formData) {
         body: formData,
       };
       const data = await sendRequest(reqConfig);
+      toast.success("Action successful!");
       dispatch(notebookActions.create(data));
     } catch (err) {
+      toast.error("Something went wrong!");
       console.log(err);
     } finally {
       dispatch(uiActions.loaderToggleFn(false));
@@ -83,8 +87,10 @@ function notebookUpdateAction(formData) {
       };
 
       const data = await sendRequest(reqConfig);
+      toast.success("Action successful!");
       dispatch(notebookActions.update(data));
     } catch (err) {
+      toast.error("Something went wrong!");
       console.log(err);
     } finally {
       dispatch(uiActions.loaderToggleFn(false));
@@ -103,8 +109,10 @@ function notebookDeleteAction(formData) {
       };
 
       const data = await sendRequest(reqConfig);
+      toast.success("Action successful!");
       dispatch(notebookActions.delete(data));
     } catch (err) {
+      toast.error("Something went wrong!");
       console.log(err);
     } finally {
       dispatch(uiActions.loaderToggleFn(false));

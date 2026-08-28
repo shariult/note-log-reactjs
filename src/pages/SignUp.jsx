@@ -8,9 +8,10 @@ import styles from "./Homepage.module.scss";
 import sideImg from "../assets/img/notebook.png";
 import logo from "../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function SignUp() {
-  const { signUpHandler, isLoggedIn } = useContext(AuthContext);
+  const { signUpHandler, isLoggedIn, error } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
@@ -57,7 +58,11 @@ function SignUp() {
     if (isLoggedIn) {
       navigate("/notebook");
     }
-  }, [isLoggedIn, navigate]);
+
+    if (error) {
+      toast.error("Something went wrong!");
+    }
+  }, [isLoggedIn, navigate, error]);
 
   return (
     <main className={`container ${styles["auth"]}`}>

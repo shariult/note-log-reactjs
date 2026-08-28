@@ -65,7 +65,7 @@ function Navbar() {
           </li>
         </ul>
 
-        <ul className={styles["navbar__list"]}>
+        <ul className={styles["navbar__user"]}>
           {/* <!-- Dropdown Menu --> */}
           <li className={styles["navbar__item"]}>
             <input
